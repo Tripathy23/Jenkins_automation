@@ -172,3 +172,14 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Terraform state and backup files
+terraform.tfstate*
+.terraform/
+
+# Terraform variables file (may contain secrets)
+terraform.tfvars
+
+# Environment variable files
+.env
+
