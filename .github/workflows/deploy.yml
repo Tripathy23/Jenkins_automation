@@ -1,0 +1,35 @@
+name: Deploy EC2 with Terraform
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+    uses: actions/checkout@v2
+
+    - name: setup Terraform
+    uses: hashicrop/setup-terraform@v2
+    with:
+      terraform_version: 1.6.2
+
+    - name: Terraform Init
+    run: terraform Init
+    working-directory: terraform
+
+    - name: Terraform Apply
+    env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
+        TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TF_VAR_ami_id: ${{ secrets.AMI_ID }}
+        TF_VAR_instance_type: ${{ secrets.INSTANCE_TYPE }}
+        TF_VAR_key_name: ${{ secrets.KEY_NAME }}
+    run: terraform apply -auto-approve
+    working-directory: terraform
