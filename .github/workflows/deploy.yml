@@ -32,4 +32,5 @@ jobs:
           TF_VAR_ami_id: ${{ secrets.AMI_ID }}
           TF_VAR_instance_type: ${{ secrets.INSTANCE_TYPE }}
           TF_VAR_key_name: ${{ secrets.KEY_NAME }}
+          TF_VAR_vpc_id: ${{ secrets.VPC_ID }}
         run: terraform apply -auto-approve
