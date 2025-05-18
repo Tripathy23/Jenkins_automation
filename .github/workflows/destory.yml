@@ -32,4 +32,5 @@ jobs:
           TF_VAR_ami_id: ${{ secrets.AMI_ID }}
           TF_VAR_instance_type: ${{ secrets.INSTANCE_TYPE }}
           TF_VAR_key_name: ${{ secrets.KEY_NAME }}
+          TF_VAR_SECURITY_GROUP: ${{ secrets.SECURITY_GROUP }}
         run: terraform destroy -target=aws_instance.example_ec2 -auto-approve
